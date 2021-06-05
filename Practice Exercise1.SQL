@@ -129,3 +129,31 @@ from customer as cust inner join  payment as pay
 on cust.customer_id=pay.customer_id
 group by cust.customer_id
 order by cust.last_name;
+-- 23. The music of Queen and Kris Kristofferson have seen an unlikely resurgence.
+-- As an unintended consequence, films starting with the letters K and Q have also soared in 
+-- popularity. Use subqueries to display the titles of movies starting with the letters 
+-- K and Q whose language is English.
+select title
+from film 
+where title like 'K%' or title like 'Q%' 
+and language_id in (select language_id
+from language 
+where name="English");
+-- 24. Use subqueries to display all actors who appear in the film Alone Trip.
+select first_name, last_name
+from actor
+where actor_id in (
+	select actor_id 
+		from film_actor
+		where film_id in (  
+					select film_id
+					from film
+					where title = 'Alone Trip'));
+-- OR
+select ac.first_name,ac.last_name
+from actor as ac inner join film_actor as fa inner join film on
+ac.actor_id=fa.actor_id and film.film_id=fa.film_id and film.title="Alone Trip";
+-- 25.You want to run an email marketing campaign in Canada, 
+-- for which you will need the names and email addresses of all Canadian customers. 
+-- Use joins to retrieve this information.
+
