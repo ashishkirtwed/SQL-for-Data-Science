@@ -97,8 +97,22 @@ from film as flm inner join film_actor as flm_actor on flm.film_id=flm_actor.fil
 group by flm.film_id;
 
 -- 21. How many copies of the film Hunchback Impossible exist in the inventory system?
-select title,count(*) 'Copies' from film, inventory where film.title='Hunchback Impossible' and film.film_id = inventory.film_id;
+select title,count(*) 'Copies' 
+from film, inventory 
+where film.title='Hunchback Impossible' and film.film_id = inventory.film_id;
 
 OR
 
-select flm.title, count(*) number_in_inventory from film flm inner join inventory inv on flm.film_id = inv.film_id where flm.title = 'Hunchback Impossible' group by flm.title;
+select flm.title, count(*) number_in_inventory 
+from film flm inner join inventory inv on flm.film_id = inv.film_id where flm.title = 'Hunchback Impossible' 
+group by flm.title;
+
+
+-- 22. Using the tables payment and customer and the JOIN command, list the total paid by each customer. 
+-- List the customers alphabetically by last name:
+select * from customer;
+select cust.first_name, cust.last_name, sum(pay.amount) as total_paid
+from customer as cust inner join  payment as pay
+on cust.customer_id=pay.customer_id
+group by cust.customer_id
+order by cust.last_name;
