@@ -156,4 +156,18 @@ ac.actor_id=fa.actor_id and film.film_id=fa.film_id and film.title="Alone Trip";
 -- 25.You want to run an email marketing campaign in Canada, 
 -- for which you will need the names and email addresses of all Canadian customers. 
 -- Use joins to retrieve this information.
-
+select first_name, last_name, email
+from customer
+where address_id in (
+	select address_id
+	from address
+	where city_id in (
+		select city_id
+		from city
+		where country_id in (
+			select country_id
+			from country
+			where country = 'Canada'
+		)
+	)
+);
